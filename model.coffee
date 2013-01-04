@@ -13,8 +13,14 @@ Rooms.allow(
 )
 
 Meteor.methods (
+  createTimer: (options) ->
+    unless options && options.monster && options.time && options.room
+      throw new Meteor.Error(400, "Required parameter missing")
+    Timers.remove(monster: options.monster, room: options.room)
+    Timers.insert(monster: options.monster, time: options.time, room: options.room)
+
   removeTimers: (room) ->
     unless room
       throw new Meteor.Error(400, "Required parameter missing")
-    Timers.remove({room: room})
+    Timers.remove(room: room)
 )

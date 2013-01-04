@@ -14,6 +14,8 @@ Template.page.events (
   'keypress input.room': (event) ->
     if event.which == 13 #enter
       Session.set('room', event.currentTarget.value)
+  'click input.remove-all-timers': ->
+    Meteor.call('removeTimers', Session.get('room'))
 )
 
 Template.monster.time = ->
@@ -56,9 +58,15 @@ Template.monster.rendered = ->
 Template.monster.destroyed = ->
   Meteor.clearInterval(@_interval)
 
-Template.page.events "click input.remove-all-timers": ->
-  Meteor.call('removeTimers', Session.get('room'))
+create_timer = (monster, time_delta) ->
+  seconds = monster.timer - time_delta
+  time = new Date().getTime() + 1000 * seconds
+  Meteor.call('createTimer', monster: monster._id, time: time, room: Session.get('room'))
 
-Template.monster.events "click input": ->
-  time = new Date().getTime() + 1000 * @timer
-  Timers.insert(monster: @_id, time: time, room: Session.get('room'))
+Template.monster.events (
+  'click input[type=button]': (event) ->
+    create_timer @, event.currentTarget.getAttribute('data-time-delta')
+  'keypress input[type=text]': (event) ->
+    if event.which == 13 #enter
+      create_timer @, event.currentTarget.value
+)
