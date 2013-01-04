@@ -1,8 +1,20 @@
 Meteor.subscribe("monsters")
-Meteor.subscribe("timers")
+Meteor.autosubscribe ->
+  Meteor.subscribe("timers", Session.get('room'))
 
 Template.page.monsters = ->
   Monsters.find()
+
+Template.page.room = ->
+  Session.get('room')
+
+Template.page.events (
+  'blur input.room': (event) ->
+    Session.set('room', event.currentTarget.value)
+  'keypress input.room': (event) ->
+    if event.which == 13 #enter
+      Session.set('room', event.currentTarget.value)
+)
 
 Template.monster.time = ->
   timer = Timers.findOne(
@@ -45,8 +57,8 @@ Template.monster.destroyed = ->
   Meteor.clearInterval(@_interval)
 
 Template.page.events "click input.remove-all-timers": ->
-  Timers.remove({})
+  Meteor.call('removeTimers', Session.get('room'))
 
 Template.monster.events "click input": ->
   time = new Date().getTime() + 1000 * @timer
-  Timers.insert(monster: @_id, time: time)
+  Timers.insert(monster: @_id, time: time, room: Session.get('room'))

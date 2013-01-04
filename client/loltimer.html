@@ -8,6 +8,11 @@
 
 <template name="page">
   <h1>Hello World!</h1>
+  <p>
+    Room :
+    <input type="text" class="room" value="{{room}}" />
+    <input type="button" value="Change" />
+  </p>
   <input type="button" class="remove-all-timers" value="Remove all timers" />
   {{#each monsters}}
     {{> monster}}
