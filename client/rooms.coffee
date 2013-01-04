@@ -1,3 +1,8 @@
+generate_room = ->
+  Meteor.call 'generateRoom', (error, result) ->
+    unless error
+      Session.set('room', result)
+
 RouterClass = Backbone.Router.extend
   routes:
     ''      : 'room'
@@ -6,10 +11,7 @@ RouterClass = Backbone.Router.extend
     if room
       Session.set('room', room)
     else
-      Meteor.call 'generateRoom', (error, result) ->
-        unless error
-          console.log result
-          Session.set('room', result)
+      generate_room()
 
 Router = new RouterClass
 Meteor.startup ->
@@ -27,3 +29,5 @@ Template.page.events
   'keypress input.room': (event) ->
     if event.which == 13 #enter
       Session.set('room', event.currentTarget.value)
+  'click input.generate': ->
+    generate_room()
