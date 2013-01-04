@@ -2,7 +2,7 @@ Meteor.subscribe("monsters")
 Meteor.autosubscribe ->
   Meteor.subscribe("timers", Session.get('room'))
 
-Template.page.monsters = ->
+Template.room.monsters = ->
   Monsters.find()
 
 Template.monster.time = ->

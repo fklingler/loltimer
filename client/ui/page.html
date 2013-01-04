@@ -8,6 +8,19 @@
 
 <template name="page">
   <h1>Hello World!</h1>
+  {{#if room}}
+    {{> room}}
+  {{else}}
+    {{> home}}
+  {{/if}}
+</template>
+
+<template name="home">
+  Welcome !
+  <input type="button" value="Create room !" />
+</template>
+
+<template name="room">
   <p>
     Room :
     <input type="button" class="generate" value="Generate" />
