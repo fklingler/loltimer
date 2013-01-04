@@ -1,0 +1,22 @@
+<head>
+  <title>loltimer</title>
+</head>
+
+<body>
+  {{> page}}
+</body>
+
+<template name="page">
+  <h1>Hello World!</h1>
+  <input type="button" class="remove-all-timers" value="Remove all timers" />
+  {{#each monsters}}
+    {{> monster}}
+  {{/each}}
+</template>
+
+<template name="monster">
+  <p>
+    {{name}} <input type="button" value="Start timer" />
+    <span class="timer" data-time="{{time}}">00:00</span>
+  </p>
+</template>
