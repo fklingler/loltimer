@@ -3,6 +3,3 @@ Meteor.publish "monsters", ->
 
 Meteor.publish "timers", (room) ->
   Timers.find({room: room})
-
-Meteor.publish "rooms", ->
-  Rooms.find()

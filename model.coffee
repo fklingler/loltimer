@@ -6,12 +6,6 @@ Timers.allow(
     timer.monster && timer.time && timer.room
 )
 
-Rooms = new Meteor.Collection("rooms")
-Rooms.allow(
-  insert: ->
-    true
-)
-
 Meteor.methods (
   createTimer: (options) ->
     unless options && options.monster && options.time && options.room
@@ -23,4 +17,11 @@ Meteor.methods (
     unless room
       throw new Meteor.Error(400, "Required parameter missing")
     Timers.remove(room: room)
+
+  generateRoom: ->
+    loop
+      room = Math.random().toString(36).substr(2, 6)
+      timers = Timers.find(room: room).count()
+      break if timers == 0
+    room
 )
