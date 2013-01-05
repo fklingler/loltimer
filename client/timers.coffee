@@ -1,4 +1,3 @@
-Meteor.subscribe("monsters")
 Meteor.autosubscribe ->
   Meteor.subscribe("timers", Session.get('room'))
 
