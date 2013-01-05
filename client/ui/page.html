@@ -16,8 +16,15 @@
 </template>
 
 <template name="home">
-  Welcome !
-  <input type="button" value="Create room !" />
+  <div>
+    <h2>Create new room</h2>
+    <input type="button" class="generate" value="Create room !" />
+  </div>
+  <div>
+    <h2>Join existing room</h2>
+    <input type="text" class="room" />
+    <input type="button" value="Join" />
+  </div>
 </template>
 
 <template name="room">

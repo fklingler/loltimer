@@ -26,18 +26,15 @@ generate_room = ->
   Meteor.call 'generateRoom', (error, result) ->
     change_room(result) unless error
 
-# Create new room from homepage
-Template.home.events
-  'click input': ->
-    generate_room()
-
-# Room generate and change on room page
-Template.room.events
+# Room generate and change on home and room page
+room_events = 
   'click input.generate': ->
     generate_room()
-
   'blur input.room': (event) ->
     change_room(event.currentTarget.value)
   'keypress input.room': (event) ->
     if event.which == 13 #enter
       change_room(event.currentTarget.value)
+
+Template.home.events room_events
+Template.room.events room_events
