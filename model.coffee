@@ -1,10 +1,6 @@
+# Deny insert, update, remove from client : must call server methods
 Monsters = new Meteor.Collection("monsters")
-
 Timers = new Meteor.Collection("timers")
-Timers.allow(
-  insert: (userId, timer) ->
-    timer.monster && timer.time && timer.room
-)
 
 Meteor.methods (
   createTimer: (options) ->
