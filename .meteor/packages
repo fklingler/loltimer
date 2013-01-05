@@ -6,3 +6,6 @@
 preserve-inputs
 coffeescript
 backbone
+bootstrap
+stylus
+jquery

@@ -1,0 +1,35 @@
+<template name="room">
+  <div class="room">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <form class="navbar-form pull-right">
+          <div class="input-append">
+            <input type="text" class="room input-small" value="{{room}}" />
+            <span class="generate add-on btn"><i class="icon-random"></i></span>
+          </div>
+          <button class="join btn">Change room</button>
+        </form>
+      </div>
+    </div>
+    {{#each monsters}}
+      {{> monster}}
+    {{/each}}
+    <div class="actions">
+      <button class="remove-timers btn btn-large btn-danger">Remove all timers</button>
+    </div>
+  </div>
+</template>
+
+<template name="monster">
+  <p>
+    {{name}}
+    <input type="button" data-time-delta="0" value="Now" />
+    <input type="button" data-time-delta="1" value="1s" />
+    <input type="button" data-time-delta="2" value="2s" />
+    <input type="button" data-time-delta="3" value="3s" />
+    <input type="button" data-time-delta="5" value="5s" />
+    <input type="button" data-time-delta="10" value="10s" />
+    <input type="text" />s
+    <span class="timer" data-time="{{time}}">00:00</span>
+  </p>
+</template>

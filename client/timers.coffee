@@ -69,5 +69,5 @@ Template.monster.events
 
 # Remove timers
 Template.page.events
-  'click input.remove-all-timers': ->
+  'click input.remove-timers': ->
     Meteor.call('removeTimers', Session.get('room'), ->)

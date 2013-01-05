@@ -7,49 +7,16 @@
 </body>
 
 <template name="page">
-  <h1>Hello World!</h1>
-  {{#if room}}
-    {{> room}}
-  {{else}}
-    {{> home}}
-  {{/if}}
-</template>
-
-<template name="home">
-  <div>
-    <h2>Create new room</h2>
-    <input type="button" class="generate" value="Create room !" />
+  <div class="container">
+    <header>
+      <h1>LoL Timer</h1>
+    </header>
+    <div class="well">
+      {{#if room}}
+        {{> room}}
+      {{else}}
+        {{> home}}
+      {{/if}}
+    </div>
   </div>
-  <div>
-    <h2>Join existing room</h2>
-    <input type="text" class="room" value="{{previous_room}}" />
-    <input type="button" value="Join" />
-  </div>
-</template>
-
-<template name="room">
-  <p>
-    Room :
-    <input type="button" class="generate" value="Generate" />
-    <input type="text" class="room" value="{{room}}" />
-    <input type="button" value="Change" />
-  </p>
-  <input type="button" class="remove-all-timers" value="Remove all timers" />
-  {{#each monsters}}
-    {{> monster}}
-  {{/each}}
-</template>
-
-<template name="monster">
-  <p>
-    {{name}}
-    <input type="button" data-time-delta="0" value="Now" />
-    <input type="button" data-time-delta="1" value="1s" />
-    <input type="button" data-time-delta="2" value="2s" />
-    <input type="button" data-time-delta="3" value="3s" />
-    <input type="button" data-time-delta="5" value="5s" />
-    <input type="button" data-time-delta="10" value="10s" />
-    <input type="text" size="2" />s
-    <span class="timer" data-time="{{time}}">00:00</span>
-  </p>
 </template>

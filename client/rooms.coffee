@@ -2,7 +2,7 @@
 RouterClass = Backbone.Router.extend
   routes:
     ''      : 'room'
-    ':room' : 'room'
+    '*room' : 'room'
   room: (room) ->
     Session.set('room', room)
 
@@ -20,27 +20,33 @@ Template.page.room = Template.room.room = ->
 Template.home.previous_room = ->
   Session.get('previous_room')
 
-# Handle changing room
+
+# Handle room generate and join
 change_room = (room) ->
-  Session.set('room', room)
+  Session.set('room', room) if room
 
-generate_room = ->
-  Meteor.call 'generateRoom', (error, result) ->
-    change_room(result) unless error
-
-# Room generate and change on home and room page
-room_events = 
-  'click input.generate': ->
-    generate_room()
-  'blur input.room': (event) ->
-    change_room(event.currentTarget.value)
+events =
+  # Create room (generate and join)
+  'click button.create': ->
+    Meteor.call 'generateRoom', (error, result) ->
+      change_room(result) unless error
+  # Generate room
+  'click .generate': ->
+    Meteor.call 'generateRoom', (error, result) ->
+      $('input.room').val(result) unless error
+  # Join room
+  'click .join': (event) ->
+    change_room($('input.room').val())
+    event.preventDefault()
   'keypress input.room': (event) ->
     if event.which == 13 #enter
       change_room(event.currentTarget.value)
+      event.preventDefault()
 
-Template.home.events room_events
-Template.room.events room_events
+Template.home.events events
+Template.room.events events
 
+# Return on homepage
 Template.page.events
   'click h1': ->
     previous_room = Session.get('room')
