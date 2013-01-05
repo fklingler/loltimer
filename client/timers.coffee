@@ -3,13 +3,13 @@ Meteor.autosubscribe ->
   Meteor.subscribe("timers", Session.get('room'))
 
 # Template values
-Template.room.monsters = ->
-  Monsters.find()
+Template.room.monsters_cols = ->
+  MonstersCols
 
 Template.monster.time = ->
   timer = Timers.findOne(
     {
-      monster: @_id,
+      monster: @id,
       time: {$gt: new Date().getTime()}
     }
     sort:
@@ -58,10 +58,10 @@ Template.monster.destroyed = ->
 create_timer = (monster, time_delta) ->
   seconds = monster.timer - time_delta
   time = new Date().getTime() + 1000 * seconds
-  Meteor.call('createTimer', monster: monster._id, time: time, room: Session.get('room'), ->)
+  Meteor.call('createTimer', monster: monster.id, time: time, room: Session.get('room'), ->)
 
 Template.monster.events
-  'click input[type=button]': (event) -> # Buttons
+  'click .timer-trigger': (event) -> # Buttons
     create_timer @, event.currentTarget.getAttribute('data-time-delta')
   'keypress input[type=text]': (event) -> # Custom time delta value
     if event.which == 13 #enter
@@ -69,5 +69,5 @@ Template.monster.events
 
 # Remove timers
 Template.page.events
-  'click input.remove-timers': ->
+  'click button.remove-timers': ->
     Meteor.call('removeTimers', Session.get('room'), ->)

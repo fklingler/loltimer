@@ -48,7 +48,7 @@ Template.room.events events
 
 # Return on homepage
 Template.page.events
-  'click h1': ->
+  'click h1 span': ->
     previous_room = Session.get('room')
     Session.set('previous_room', previous_room) if previous_room
     Session.set('room', '')

@@ -2,35 +2,94 @@
   margin-top: 20px
   width: 800px
 
-  header
-    margin-bottom: 30px
-    h1
-      text-align: center
+header
+  margin-bottom: 30px
+  h1
+    text-align: center
+    span
       cursor: pointer
 
-  .home
-    .actions
-      width: 300px
-      margin: auto
+.home
+  .actions
+    width: 300px
+    margin: auto
+    margin-top: 20px
+    text-align: center
+    input
       margin-top: 20px
-      text-align: center
-      input
-        margin-top: 20px
-      button
-        small
-          font-size: 80%
+    button
+      small
+        font-size: 80%
 
-  .room
-    .navbar
-      span.navbar-text
-        margin-right: 10px
-      .input-append
+.room
+  position: relative
+  .room-form
+    width: 100%
+    position: absolute
+    top: -60px
+    right: -20px
+    .room-form-inner
+      float: right
+      display: inline
+      div, input, button
         display: inline
-        margin-right: 5px
-        input, span
-          margin-top: 5px
+      button.join
+        margin-left: 5px
 
-    .actions
+  .col
+    width: 378px //50%
+    &:first-child
+      float: left
+      margin-right: 2px
+    &:last-child
+      float: right
+      margin-left: 2px
+
+  .monster
+    display: inline-block
+    height: 80px
+    margin-bottom: 2px
+    // border: 1px solid #eee
+    img, .infos, .buttons
+      float: left
+    img
+      width: 80px
+      height: 80px
+      background-repeat: no-repeat
+    .infos
+      width: 238px
+      height: 100%
+    .name, .timer
+      display: inline-block
+      width: 100%
       text-align: center
-      margin: auto
-      margin-top: 30px
+    .timer
+      font-size: 400%
+      margin-top: 15px
+    .buttons
+      width: 60px
+      height: 100%
+      line-height: 10px
+      padding-top: 1px
+      padding-bottom: 1px
+    .timer-trigger
+      cursor: pointer
+    button
+      width: 100%
+      height: 13px
+      font-size: 10px
+      line-height: 10px
+    input
+      width: 100%
+      height: 13px
+      padding: 0px
+      line-height: 10px
+      font-size: 10px
+      text-align: center
+      margin-bottom: 0px
+      box-sizing: border-box
+
+  .actions
+    clear: both
+    text-align: center
+    padding-top: 30px
