@@ -24,26 +24,44 @@ Template.monster.rendered = ->
 
   # Get timestamp
   timer = this.find('.timer')
-  time = timer.getAttribute('data-time')
+  timestamp = timer.getAttribute('data-timestamp')
 
-  if time
+  if timestamp
+    timer_duration = timer.getAttribute('data-timer-duration')
+    timer_alert    = timer.getAttribute('data-timer-alert')
+    timer_initial_color = red:51,  green:51, blue:51
+    timer_final_color   = red:255, green:0,  blue:0
+
     display_timer = (template) ->
       # Get seconds between timer and actual time
-      diff = Math.round((time - new Date().getTime()) / 1000)
-      if diff <= 0
-        diff = 0
-        if template._interval # Cleaning
+      diff = timestamp - new Date().getTime()
+      diff_s = Math.round(diff/1000)
+      diff_ms = diff%1000
+
+      # Display minutes and seconds
+      minutes = if diff_s > 0 then Math.floor(diff_s/60) else 0
+      seconds = if diff_s > 0 then diff_s%60 else 0
+      timer.innerHTML = time_string_from_minutes_and_seconds(minutes, seconds)
+
+      # Change color of timer (look at colors.coffee)
+      if diff_s > timer_alert || (diff_ms >= 0 && Math.floor(diff_ms/500) == 0) || (diff_ms < 0 && Math.floor(-diff_ms/500) == 1) ## Blink
+        exp_percent = get_time_exp_percent(diff_s, timer_duration) # exponential function
+        new_color = get_rgb_hash_percent(exp_percent, timer_initial_color, timer_final_color)
+        timer.style.color = rgb_string_from_hash(new_color)
+      else
+        timer.style.color = rgb_string_from_hash(timer_initial_color)
+
+      # Clean at the end
+      if diff_s < -5
+        # Reset timer color
+        timer.style.color = rgb_string_from_hash(timer_initial_color)
+        # Clean interval
+        if template._interval
           Meteor.clearInterval(template._interval)
           delete template._interval
-      # Display minutes and seconds
-      minutes = Math.floor(diff/60)
-      minutes = '0' + minutes if minutes < 10
-      seconds = diff%60
-      seconds = '0' + seconds if seconds < 10
-      timer.innerHTML = minutes + ':' + seconds
 
     # Display timer a first time then every 100ms
-    template = @
+    template = @ 
     display_timer(template)
     @_interval = Meteor.setInterval( ->
       display_timer(template)
