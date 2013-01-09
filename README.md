@@ -24,3 +24,4 @@ License
 -------
 
 Copyright © 2013 - François Klingler
+League of Legends content and materials are trademarks and copyrights of Riot Games Inc. or its licensors. All rights reserved.
