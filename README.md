@@ -8,7 +8,7 @@ You can share the timers in a room so every member of your team will be synchron
 Libraries used
 --------------
 
-This project is based on [Meteor.js](http://meteorjs.com).
+This project is based on [Meteor.js](http://meteor.com).
 
 It also uses the [Backbone.js](http://backbonejs.org) router for the URL management.
 
