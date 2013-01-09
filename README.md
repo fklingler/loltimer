@@ -13,6 +13,13 @@ This project is based on [Meteor.js](http://meteorjs.com).
 It also uses the [Backbone.js](http://backbonejs.org) router for the URL management.
 
 
+Todo
+----
+
+* Add help
+* Add options (e.g. to change alert timings)
+
+
 License
 -------
 
